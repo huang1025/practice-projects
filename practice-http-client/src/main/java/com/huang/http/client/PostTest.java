@@ -1,21 +1,16 @@
 package com.huang.http.client;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by huang on 2017/5/17.
@@ -26,15 +21,18 @@ public class PostTest {
     public void test() {
         // 创建默认的httpClient实例.
         CloseableHttpClient httpclient = HttpClients.createDefault();
+
         // 创建httppost
-        HttpPost httppost = new HttpPost("http://localhost:8080/myDemo/Ajax/serivceJ.action");
+        HttpPost httppost = new HttpPost("https://www.apple.com/cn/");
+
         // 创建参数队列
-        List<NameValuePair> formparams = new ArrayList<>();
-        formparams.add(new BasicNameValuePair("type", "house"));
-        UrlEncodedFormEntity uefEntity;
+//        List<NameValuePair> formparams = new ArrayList<>();
+//        formparams.add(new BasicNameValuePair("type", "house"));
+//        UrlEncodedFormEntity uefEntity;
+
         try {
-            uefEntity = new UrlEncodedFormEntity(formparams, "UTF-8");
-            httppost.setEntity(uefEntity);
+//            uefEntity = new UrlEncodedFormEntity(formparams, "UTF-8");
+//            httppost.setEntity(uefEntity);
             System.out.println("executing request " + httppost.getURI());
             CloseableHttpResponse response = httpclient.execute(httppost);
             try {
