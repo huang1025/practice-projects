@@ -14,10 +14,6 @@
         <module>practice-web</module>
     </modules>
 
-    <properties>
-        <springversion>4.3.8.RELEASE</springversion>
-    </properties>
-
     <dependencies>
 
         <!-- junit -->
