@@ -16,9 +16,7 @@ import javax.validation.Valid;
 public class EmployeeController extends BaseController {
 
     @RequestMapping(value = "save", method = RequestMethod.POST, consumes = "application/json", produces = "application/json;charset=UTF-8")
-    public Employee save(@RequestBody @Valid Employee employee) {
-        employee.setAge(employee.getAge() + 1);
-        employee.setName("hello " + employee.getName());
-        return employee;
+    public String save(@RequestBody @Valid Employee employee) {
+        return "hello " + employee.getName() + ", you are " + employee.getAge() + " year old;";
     }
 }
