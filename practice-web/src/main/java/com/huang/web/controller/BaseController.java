@@ -1,6 +1,9 @@
 package com.huang.web.controller;
 
+import com.huang.web.validator.EmployeeValidator;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -8,10 +11,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 public class BaseController {
 
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(new EmployeeValidator());
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public String exceptionHandler(Exception e) {
         e.printStackTrace();
-        return "正在维修中" + e.getMessage();
+        return "正在维修中(" + e.getMessage() + ")";
     }
 }
