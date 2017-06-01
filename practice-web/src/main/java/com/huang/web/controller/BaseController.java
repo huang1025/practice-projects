@@ -1,6 +1,6 @@
 package com.huang.web.controller;
 
-import com.huang.web.validator.EmployeeValidator;
+import com.huang.base.dto.validate.validator.EmployeeValidator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;

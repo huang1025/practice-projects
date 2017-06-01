@@ -1,4 +1,4 @@
-package com.huang.web.validator;
+package com.huang.base.dto.validate.validator;
 
 import com.huang.base.dto.Employee;
 import org.springframework.util.StringUtils;

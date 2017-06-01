@@ -1,5 +1,6 @@
 package com.huang.base.dto;
 
+import com.huang.base.dto.validate.annotation.IntEqual;
 import com.huang.base.dto.validate.groups.FirstGroup;
 import com.huang.base.dto.validate.groups.SecondGroup;
 import org.hibernate.validator.constraints.NotBlank;
@@ -15,6 +16,7 @@ public class Employee {
     @NotBlank(message = "员工名称不能为空;", groups = {FirstGroup.class, SecondGroup.class})
     private String name;
 
+    @IntEqual(value = 17, groups = {FirstGroup.class})
     @NotBlank(message = "员工名称不能为空;", groups = {SecondGroup.class})
     private Integer age;
 
