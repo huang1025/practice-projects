@@ -12,6 +12,7 @@
         <module>practice-base</module>
         <module>practice-http-client</module>
         <module>practice-web</module>
+        <module>practice-excel</module>
     </modules>
 
     <dependencies>
