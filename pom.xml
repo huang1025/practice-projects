@@ -13,6 +13,7 @@
         <module>practice-http-client</module>
         <module>practice-web</module>
         <module>practice-excel</module>
+        <module>practice-thread</module>
     </modules>
 
     <dependencies>
