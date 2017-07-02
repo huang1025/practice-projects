@@ -14,6 +14,7 @@
         <module>practice-web</module>
         <module>practice-excel</module>
         <module>practice-thread</module>
+        <module>practice-activiti</module>
     </modules>
 
     <dependencies>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="myProcess" name="My process" isExecutable="true">
+    <startEvent id="kai_shi" name="开始">
+      <extensionElements>
+        <activiti:executionListener event="end" delegateExpression="${workFlowListener}"></activiti:executionListener>
+      </extensionElements>
+    </startEvent>
+    <userTask id="jian_li_shen_pi" name="简历审批">
+      <extensionElements>
+        <activiti:taskListener event="all" delegateExpression="${workFlowListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="kai_shi" targetRef="jian_li_shen_pi"></sequenceFlow>
+    <userTask id="ren_shi_shen_pi" name="人事审批">
+      <extensionElements>
+        <activiti:taskListener event="all" delegateExpression="${workFlowListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="jian_li_shen_pi" targetRef="ren_shi_shen_pi"></sequenceFlow>
+    <exclusiveGateway id="ren_shi_shen_pi_gateway" name="人事审批网关">
+      <extensionElements>
+        <activiti:executionListener event="start" delegateExpression="${workFlowListener}"></activiti:executionListener>
+        <activiti:executionListener event="end" delegateExpression="${workFlowListener}"></activiti:executionListener>
+      </extensionElements>
+    </exclusiveGateway>
+    <sequenceFlow id="flow3" sourceRef="ren_shi_shen_pi" targetRef="ren_shi_shen_pi_gateway"></sequenceFlow>
+    <userTask id="bu_men_A_shen_pi" name="部门A审批">
+      <extensionElements>
+        <activiti:taskListener event="all" delegateExpression="${workFlowListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="ren_shi_shen_pi_gateway" targetRef="bu_men_A_shen_pi">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ren_shi_shen_pi=='Y'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="bu_men_B_shen_pi" name="部门B审批">
+      <extensionElements>
+        <activiti:taskListener event="all" delegateExpression="${workFlowListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow5" sourceRef="ren_shi_shen_pi_gateway" targetRef="bu_men_B_shen_pi">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ren_shi_shen_pi=='N'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="bu_men_shen_pi_gateway" name="部门审批网关">
+      <extensionElements>
+        <activiti:executionListener event="start" delegateExpression="${workFlowListener}"></activiti:executionListener>
+        <activiti:executionListener event="end" delegateExpression="${workFlowListener}"></activiti:executionListener>
+      </extensionElements>
+    </exclusiveGateway>
+    <sequenceFlow id="flow6" sourceRef="bu_men_A_shen_pi" targetRef="bu_men_shen_pi_gateway"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="bu_men_B_shen_pi" targetRef="bu_men_shen_pi_gateway"></sequenceFlow>
+    <userTask id="zheng_shi_lu_yong" name="正式录用">
+      <extensionElements>
+        <activiti:taskListener event="all" delegateExpression="${workFlowListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow8" sourceRef="bu_men_shen_pi_gateway" targetRef="zheng_shi_lu_yong">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${bu_men_shen_pi=='Y'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="jie_shu" name="结束">
+      <extensionElements>
+        <activiti:executionListener event="start" delegateExpression="${workFlowListener}"></activiti:executionListener>
+      </extensionElements>
+    </endEvent>
+    <sequenceFlow id="flow9" sourceRef="zheng_shi_lu_yong" targetRef="jie_shu"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="bu_men_shen_pi_gateway" targetRef="jie_shu">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${bu_men_shen_pi=='N'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
+    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+      <bpmndi:BPMNShape bpmnElement="kai_shi" id="BPMNShape_kai_shi">
+        <omgdc:Bounds height="35.0" width="35.0" x="64.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="jian_li_shen_pi" id="BPMNShape_jian_li_shen_pi">
+        <omgdc:Bounds height="55.0" width="105.0" x="120.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ren_shi_shen_pi" id="BPMNShape_ren_shi_shen_pi">
+        <omgdc:Bounds height="55.0" width="105.0" x="265.0" y="209.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ren_shi_shen_pi_gateway" id="BPMNShape_ren_shi_shen_pi_gateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="425.0" y="218.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="bu_men_A_shen_pi" id="BPMNShape_bu_men_A_shen_pi">
+        <omgdc:Bounds height="55.0" width="105.0" x="393.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="bu_men_B_shen_pi" id="BPMNShape_bu_men_B_shen_pi">
+        <omgdc:Bounds height="55.0" width="105.0" x="410.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="bu_men_shen_pi_gateway" id="BPMNShape_bu_men_shen_pi_gateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="512.0" y="218.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="zheng_shi_lu_yong" id="BPMNShape_zheng_shi_lu_yong">
+        <omgdc:Bounds height="55.0" width="105.0" x="612.0" y="131.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="jie_shu" id="BPMNShape_jie_shu">
+        <omgdc:Bounds height="35.0" width="35.0" x="647.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="99.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="120.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="225.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="265.0" y="236.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="370.0" y="236.0"></omgdi:waypoint>
+        <omgdi:waypoint x="425.0" y="238.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="445.0" y="218.0"></omgdi:waypoint>
+        <omgdi:waypoint x="445.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="445.0" y="258.0"></omgdi:waypoint>
+        <omgdi:waypoint x="462.0" y="300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="498.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="532.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="532.0" y="218.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="515.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="531.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="532.0" y="258.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="552.0" y="238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="577.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="577.0" y="159.0"></omgdi:waypoint>
+        <omgdi:waypoint x="612.0" y="158.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="664.0" y="186.0"></omgdi:waypoint>
+        <omgdi:waypoint x="664.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="552.0" y="238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="579.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="647.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
