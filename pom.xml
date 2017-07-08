@@ -15,6 +15,7 @@
         <module>practice-excel</module>
         <module>practice-thread</module>
         <module>practice-activiti</module>
+        <module>practice-mockito</module>
     </modules>
 
     <dependencies>
