@@ -85,12 +85,21 @@ public class MockitoTest extends BaseMockito {
         System.out.println(employeeService2.getAge());//2
         System.out.println(employeeService2.getAge());//2
         System.out.println(employeeService2.getAge());//2
+        System.out.println("==========");
+
+        IEmployeeService employeeService3 = mock(IEmployeeService.class);
+        when(employeeService3.getAge()).thenReturn(1, 2);
+        System.out.println(employeeService3.getAge());//1
+        System.out.println(employeeService3.getAge());//2
+        System.out.println(employeeService3.getAge());//2
+        System.out.println(employeeService3.getAge());//2
+        System.out.println("==========");
 
 
         /** 使用 doReutrn-when 的方式，也能实现，定制返回值的目的； */
-        IEmployeeService employeeService3 = mock(IEmployeeService.class);
-        doReturn(12).when(employeeService3).getAge();
-        System.out.println(employeeService3.getAge());
+        IEmployeeService employeeService4 = mock(IEmployeeService.class);
+        doReturn(12).when(employeeService4).getAge();
+        System.out.println(employeeService4.getAge());
     }
 
     /**
@@ -192,7 +201,8 @@ public class MockitoTest extends BaseMockito {
         System.out.println(spyEmployeeService.getAge());
 
         System.out.println(spyAbstract.getSalaryDate());//未实现的方法，给默认空值；
-        System.out.println(spyAbstract.getAge());//已实现的方法，真是调用；
+        System.out.println(spyAbstract.getAge());//已实现的方法，真实调用；
+        System.out.println("============");
 
         /** spy 对象，返回给定值，使用 when-thenReutrn 或者 doReturn-when 都是可以的； */
         when(spyEmployeeService.getAge()).thenReturn(14);
@@ -200,6 +210,11 @@ public class MockitoTest extends BaseMockito {
 
         doReturn(15).when(spyEmployeeService).getAge();
         System.out.println(spyEmployeeService.getAge());
+
+        /** 直接报空指针异常； */
+        //IEmployeeService employeeService=null;
+        // IEmployeeService spy = spy(employeeService);
+        //System.out.println(spy.getAge());
     }
 
     /**
