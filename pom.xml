@@ -16,6 +16,7 @@
         <module>practice-thread</module>
         <module>practice-activiti</module>
         <module>practice-mockito</module>
+        <module>practice-spring</module>
     </modules>
 
     <dependencies>
