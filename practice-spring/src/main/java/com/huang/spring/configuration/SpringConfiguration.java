@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Scope;
 
 import java.util.Date;
 import java.util.Random;
 
 @Configuration
+@EnableAspectJAutoProxy
 public class SpringConfiguration {
 
     @Bean
@@ -125,4 +127,5 @@ public class SpringConfiguration {
     }
 
     ////////////////////////////////////////////////////////////////////////
+
 }
