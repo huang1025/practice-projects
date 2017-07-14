@@ -1,13 +1,12 @@
 package com.huang.spring.controller;
 
 import com.huang.spring.aop.IntroducerService;
+import com.huang.spring.model.Employee;
 import com.huang.spring.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by huang on 2017/7/13.
@@ -23,7 +22,7 @@ public class EmployeeController {
     @Autowired
     private IntroducerService introducerService;
 
-    @RequestMapping("getName")
+    @RequestMapping({"getName", "getname", "name"})
     public String getName(@RequestBody int id) {
         log.info("================================");
 
@@ -39,5 +38,24 @@ public class EmployeeController {
 
         log.info("================================");
         return employeeService.getEmployeeName(id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "{hehe}/{haha}/{xixi}")
+    public String pathVariable(@PathVariable String hehe,
+                               @PathVariable("haha") String hahaha,
+                               @PathVariable("xixi") String xixi) {
+
+        return hehe + "/" + hahaha + "/" + xixi;
+    }
+
+    @RequestMapping(value = "employee", method = RequestMethod.POST)
+    public Employee employee(Employee employee) {
+        return employee;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "requestParam")
+    public String requestParam(@RequestParam String name,
+                               @RequestParam int age) {
+        return name + age;
     }
 }
