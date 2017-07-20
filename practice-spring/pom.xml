@@ -16,7 +16,7 @@
         <!--base-->
         <dependency>
             <groupId>com.huang</groupId>
-            <artifactId>base</artifactId>
+            <artifactId>practice-base</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

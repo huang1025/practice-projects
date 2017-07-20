@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>practice-base</module>
         <module>practice-http-client</module>
         <module>practice-web</module>
         <module>practice-excel</module>
@@ -17,6 +16,7 @@
         <module>practice-activiti</module>
         <module>practice-mockito</module>
         <module>practice-spring</module>
+        <module>practice-base</module>
     </modules>
 
     <dependencies>
