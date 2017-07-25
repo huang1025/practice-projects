@@ -10,11 +10,12 @@ public class CountDownLatchTest {
 
     public static void main(String[] args) {
         CountDownLatchTest demo = new CountDownLatchTest();
-        demo.countDownLatch.countDown();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+                    System.out.println("准备 countDown；");
+                    demo.countDownLatch.countDown();
                     demo.countDownLatch.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
