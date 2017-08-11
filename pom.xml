@@ -17,6 +17,7 @@
         <module>practice-mockito</module>
         <module>practice-spring</module>
         <module>practice-base</module>
+        <module>practice-disconf</module>
     </modules>
 
     <dependencies>
