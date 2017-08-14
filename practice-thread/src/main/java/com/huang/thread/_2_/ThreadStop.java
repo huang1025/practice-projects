@@ -2,23 +2,21 @@ package com.huang.thread._2_;
 
 public class ThreadStop implements Runnable {
     boolean flag = false;
-    int num1 = 1;
-    int num2 = 1;
+    int num = 1;
 
     @Override
     public void run() {
-        while (num1 < 100) {
+        while (true) {
             if (flag) {
                 return;
             }
             synchronized (this) {
-                ++num1;
                 try {
                     Thread.currentThread().sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ++num2;
+                System.out.println(Thread.currentThread().getName() + ":" + (++num));
             }
         }
     }
@@ -29,6 +27,7 @@ public class ThreadStop implements Runnable {
         thread.start();
         Thread.currentThread().sleep(2000);
 //        thread.stop();
+        System.out.println("main prepare to stop thread...");
         threadStop.flag = true;
     }
 }
