@@ -18,6 +18,7 @@
         <module>practice-spring</module>
         <module>practice-base</module>
         <module>practice-disconf</module>
+        <module>practice-for-company</module>
     </modules>
 
     <dependencies>
