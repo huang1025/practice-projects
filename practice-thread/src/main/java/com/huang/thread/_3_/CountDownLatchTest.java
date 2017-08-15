@@ -1,26 +1,34 @@
 package com.huang.thread._3_;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by huang on 2017/6/23.
  */
 public class CountDownLatchTest {
-    CountDownLatch countDownLatch = new CountDownLatch(12);
 
     public static void main(String[] args) {
-        CountDownLatchTest demo = new CountDownLatchTest();
-        new Thread(new Runnable() {
+        CountDownLatch countDownLatch = new CountDownLatch(3);
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
+                String name = Thread.currentThread().getName();
+                System.out.println("线程:" + name + "准备执行；");
+                countDownLatch.countDown();
                 try {
-                    System.out.println("准备 countDown；");
-                    demo.countDownLatch.countDown();
-                    demo.countDownLatch.await();
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                System.out.println("线程:" + name + "开始执行；");
             }
-        }).start();
+        };
+
+        ExecutorService executorService = Executors.newFixedThreadPool(30);
+        for (int i = 0; i < 3; i++) {
+            executorService.submit(runnable);
+        }
     }
 }
