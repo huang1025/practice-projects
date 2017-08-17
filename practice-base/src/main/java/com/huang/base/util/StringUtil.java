@@ -1,10 +1,10 @@
 package com.huang.base.util;
 
-import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by huang_jiangling on 2017/8/11.
@@ -14,6 +14,29 @@ public class StringUtil {
     private StringUtil() {
     }
 
+    /**
+     * 将字符串裁剪成字符串集合；
+     */
+    public static List<String> splitString(String s, String regular) {
+        if (StringUtils.isBlank(s)) {
+            return new ArrayList<>(0);
+        }
+
+        String realRegular = regular;
+        if (StringUtils.isBlank(regular)) {
+            realRegular = "\n";
+        }
+
+        return Arrays.asList(s.split(realRegular));
+    }
+
+    /**
+     * 转换下划线；
+     * 1，将给定字符串中的下划线删除，并将后面的字符转成大写；
+     * 2，如果连续出现两个或多个下滑线，那么当成一个下划线处理；
+     * 3，如果下划线出现在字符串最后，那么直接删除掉；
+     * 4，如果首字母大写，则转成小写；
+     */
     public static String turnUnderLine(String s) {
         if (StringUtils.isBlank(s)) {
             return s;
@@ -23,8 +46,7 @@ public class StringUtil {
         StringBuilder sb = new StringBuilder(chars.length);
         boolean flag = false;
 
-        for (int i = 0; i < chars.length; i++) {
-            char each = chars[i];
+        for (char each : chars) {
             if (each == '_') {
                 flag = true;
                 continue;
@@ -38,58 +60,24 @@ public class StringUtil {
             }
         }
 
-        return sb.toString();
+        String returnString = sb.toString();
+        return Character.toString(returnString.charAt(0)).toLowerCase() + returnString.substring(1, returnString.length());
     }
 
-    public static String toJson(String[] keyArray, String[] commentArray, boolean turnUnderLine) {
-        JSONObject jsonObject = new JSONObject();
+    public static String addUnderLine(String field) {
 
-        if (keyArray == null) {
-            return jsonObject.toJSONString();
-        }
+        String interval = "_";
+        char[] chars = field.toCharArray();
+        StringBuilder sb = new StringBuilder(chars.length * 2);
 
-        for (int i = 0; i < keyArray.length; i++) {
-            String each = keyArray[i];
-            String key = turnUnderLine ? turnUnderLine(each) : each;
-            String value = (commentArray == null) || (i > commentArray.length - 1) ? "" : commentArray[i];
-            jsonObject.put(key, value);
-        }
-
-        return jsonObject.toJSONString();
-    }
-
-    public static String toJson(String[] keyArray, boolean turnUnderLine) {
-        return toJson(keyArray, null, turnUnderLine);
-    }
-
-    public static String toFields(String[] keyArray, String[] commentArray, String[] fieldType, StringToType stringToType, boolean turnUnderLine) {
-        if (keyArray == null) {
-            return null;
-        }
-
-        String privateString = "private";
-        String space = " ";
-        String enter = "\n";
-        String fenhao = ";";
-        String comment = "//";
-        Set<String> fieldSet = new HashSet<>(keyArray.length);
-
-        StringBuilder sb = new StringBuilder(1000);
-        for (int i = 0; i < keyArray.length; i++) {
-            String each = keyArray[i];
-            String key = turnUnderLine ? turnUnderLine(each) : each;
-            String value = (commentArray == null) || (i > commentArray.length - 1) ? "" : commentArray[i];
-            String type = stringToType.getType(fieldType[i]).getSimpleName();
-            String fileComment = comment + value + fenhao;
-
-            if (!fieldSet.contains(each)) {
-                sb.append(privateString).append(space).append(type).append(space).append(key).append(fenhao).append(fileComment).append(enter);
-                fieldSet.add(each);
+        for (char each : chars) {
+            boolean isUpperCase = Character.isUpperCase(each);
+            if (isUpperCase) {
+                sb.append(interval).append(Character.toLowerCase(each));
+            } else {
+                sb.append(each);
             }
         }
-
         return sb.toString();
     }
-
-
 }
