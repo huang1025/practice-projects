@@ -19,6 +19,7 @@
         <module>practice-base</module>
         <module>practice-disconf</module>
         <module>practice-for-company</module>
+        <module>practice-mybatis</module>
     </modules>
 
     <dependencies>
