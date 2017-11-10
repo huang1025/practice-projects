@@ -32,6 +32,7 @@ public class Employee {
     private Integer id;
     private String name;
     private Integer age;
+    private Sex sex;
 
     @Override
     public String toString() {
@@ -39,7 +40,11 @@ public class Employee {
     }
 
     public static void main(String[] args) throws IOException {
-        userSQL();
+        SqlSessionFactory sessionFactory = MyBatisCofing.getFactoryWithXML();
+        SqlSession sqlSession = sessionFactory.openSession();
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+        Employee select = mapper.select(12);
+        System.out.println(select);
     }
 
     private static void useMapper() throws IOException {
@@ -56,7 +61,7 @@ public class Employee {
         int updateNum = mapper.update(employee);
         System.out.println(updateNum);
 
-        Employee select = mapper.select(10);
+        Employee select = mapper.select(12);
         System.out.println(select);
 
         int deleteNum = mapper.delete(11);
