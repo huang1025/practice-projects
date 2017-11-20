@@ -1,0 +1,13 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huang.mybatis.mapper.DepartmentMapper">
+
+    <insert id="insert" keyProperty="id" keyColumn="id" parameterType="com.huang.mybatis.dto.Department">
+        <selectKey keyProperty="id" resultType="string" order="BEFORE">
+            SELECT replace(uuid(),'-','')
+        </selectKey>
+        INSERT INTO department (id,name) VALUE (#{id},#{name})
+    </insert>
+
+</mapper>

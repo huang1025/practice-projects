@@ -11,7 +11,7 @@
 
     <typeHandlers>
         <typeHandler handler="com.huang.mybatis.typehandler.MyStringTypeHandler" jdbcType="VARCHAR" javaType="string"/>
-        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="com.huang.mybatis.Sex"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="com.huang.mybatis.dto.Sex"/>
     </typeHandlers>
 
     <!--环境配置-->
@@ -41,5 +41,6 @@
     <!-- mapping 文件路径配置 -->
     <mappers>
         <mapper resource="mybatis/EmployeeMapper.xml"/>
+        <mapper resource="mybatis/DepartmentMapper.xml"/>
     </mappers>
 </configuration>

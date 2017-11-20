@@ -1,9 +1,10 @@
-package com.huang.mybatis;
+package com.huang.mybatis.config;
 
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
@@ -14,7 +15,29 @@ import java.io.InputStream;
 
 public class MyBatisCofing {
 
-    public static SqlSessionFactory getFactoryWithJava(){
+    private static SqlSessionFactory sessionFactory;
+
+    public static SqlSessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            synchronized (MyBatisCofing.class) {
+                if (sessionFactory == null) {
+                    try {
+                        sessionFactory = getFactoryWithXML();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return sessionFactory;
+    }
+
+    public static SqlSession getSession() {
+        return getSessionFactory().openSession();
+    }
+
+
+    public static SqlSessionFactory getFactoryWithJava() {
 
         //获取连接池；
         PooledDataSource dataSource = new PooledDataSource();

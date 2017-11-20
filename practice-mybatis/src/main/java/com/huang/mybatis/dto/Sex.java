@@ -1,4 +1,4 @@
-package com.huang.mybatis;
+package com.huang.mybatis.dto;
 
 /**
  * Created by huang_jiangling on 2017/11/10.

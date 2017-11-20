@@ -1,45 +1,50 @@
-package com.huang.mybatis;
+package com.huang.mybatis.manager;
 
-import com.alibaba.fastjson.JSON;
-import lombok.Getter;
-import lombok.Setter;
+import com.huang.mybatis.config.MyBatisCofing;
+import com.huang.mybatis.dto.Employee;
+import com.huang.mybatis.mapper.EmployeeMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.io.IOException;
 
 /**
- * Created by huang_jiangling on 2017/11/9.
+ * Created by huang_jiangling on 2017/11/13.
  */
-@Getter
-@Setter
-public class Employee {
-
-    public Employee() {
-    }
-
-    public Employee(String name, Integer age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public Employee(Integer id, String name, Integer age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-    }
-
-    private Integer id;
-    private String name;
-    private Integer age;
-    private Sex sex;
-
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
-
+public class EmployeeManager {
     public static void main(String[] args) throws IOException {
+        associationTest();
+    }
+
+    /**
+     * association 测试；
+     */
+    private static void associationTest() {
+        SqlSession session = MyBatisCofing.getSession();
+        EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+        Employee employee = mapper.get(1);
+        System.out.println(employee);
+        session.commit();
+    }
+
+    /**
+     * selectKey 测试；
+     */
+    private static void selectKeyTest() throws IOException {
+        SqlSessionFactory sessionFactory = MyBatisCofing.getFactoryWithXML();
+        SqlSession session = sessionFactory.openSession();
+        EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+        Employee em = new Employee("xixi", 12);
+        System.out.println(em);
+        mapper.insert2(em);
+        System.out.println(em);
+        session.commit();
+    }
+
+    /**
+     * 使用主键回填测试；
+     */
+    private static void useGeneratedKeyTest() throws IOException {
         SqlSessionFactory sessionFactory = MyBatisCofing.getFactoryWithXML();
         SqlSession sqlSession = sessionFactory.openSession();
         EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
@@ -75,19 +80,19 @@ public class Employee {
         SqlSession session = sessionFactory.openSession();
 
         Employee employee = new Employee("huang", 17);
-        int insert = session.insert("com.huang.mybatis.EmployeeMapper.insert", employee);
+        int insert = session.insert("com.huang.mybatis.mapper.EmployeeMapper.insert", employee);
         System.out.println(insert);//1
         System.out.println(employee);//{"age":17,"id":15,"name":"huang"}
 
         employee = new Employee(1, "huang", 16);
-        int update = session.update("com.huang.mybatis.EmployeeMapper.update", employee);
+        int update = session.update("com.huang.mybatis.mapper.EmployeeMapper.update", employee);
         System.out.println(update);//1
 
-        Employee employee1 = session.<Employee>selectOne("com.huang.mybatis.EmployeeMapper.select", 12);
+        Employee employee1 = session.<Employee>selectOne("com.huang.mybatis.mapper.EmployeeMapper.select", 12);
         System.out.println(employee1);//{"age":17,"id":12,"name":"huang"}
 
 
-        int delete = session.delete("com.huang.mybatis.EmployeeMapper.delete", 1);
+        int delete = session.delete("com.huang.mybatis.mapper.EmployeeMapper.delete", 1);
         System.out.println(delete);//0
 
         session.commit();
