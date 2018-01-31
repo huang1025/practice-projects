@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--想使用autowired等标签，必须要使用此配置-->
+    <context:annotation-config/>
+
+    <!--扫描controller，service，component等标签配置-->
+    <context:component-scan base-package="com.google.huang"/>
+
+    <!--引入外部文件-->
+    <context:property-placeholder location="classpath*:db.properties"/>
+
+    <!--配置连接池-->
+    <bean id="dataSources" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${db.driverClassName}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <!--配置sessionFactory-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSources"/>
+        <property name="mappingDirectoryLocations" value="classpath*:com/google/huang/domain"/>
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- 事务模板 -->
+    <tx:advice id="advice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="list*" read-only="true"/>
+            <tx:method name="query*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="check*" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- aop相关配置 -->
+    <aop:config>
+        <aop:pointcut expression="execution(* com.google.huang.service.*.*(..))"
+                      id="pointCut"/>
+        <aop:advisor advice-ref="advice" pointcut-ref="pointCut"/>
+    </aop:config>
+
+    <!--dubbo配置-->
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="dubbo-provider-app"/>
+
+    <!-- 使用multicast广播注册中心暴露服务地址 -->
+    <dubbo:registry address="zookeeper://localhost:2181"/>
+
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.google.huang.service.ProviderService" ref="providerServiceImpl"/>
+
+    <bean id="providerServiceImpl" class="com.google.huang.service.ProviderServiceImpl"/>
+
+</beans>
