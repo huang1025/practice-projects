@@ -20,6 +20,7 @@
         <module>practice-mybatis</module>
         <module>practice-spring</module>
         <module>practice-rx-java</module>
+        <module>practice-guava</module>
     </modules>
 
     <dependencies>
