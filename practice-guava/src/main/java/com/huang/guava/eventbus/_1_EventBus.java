@@ -1,5 +1,6 @@
 package com.huang.guava.eventbus;
 
+import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
@@ -11,21 +12,23 @@ public class _1_EventBus {
         EventBus eventBus = new EventBus();
         eventBus.register(new Object() {
             @Subscribe
-            public void hehe(String name) {
-                System.out.println("hehe:" + name);
-            }
-
-            @Subscribe
-            public void haha(String name) {
-                System.out.println("haha:" + name);
-            }
-
-            @Subscribe
-            private String xixi(String name) {
-                System.out.println("xixi:" + name);
-                return name;
+            @AllowConcurrentEvents
+            public void hehe(String name) throws InterruptedException {
+                System.out.println("begin-" + name);
+                Thread.currentThread().sleep(2000);
+                System.out.println("end-" + name);
             }
         });
-        eventBus.post("huang");
+
+        for (int i = 0; i < 100; i++) {
+            int finalI = i;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    eventBus.post(Integer.toString(finalI));
+                }
+            }).start();
+            System.out.println("------");
+        }
     }
 }
