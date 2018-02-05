@@ -22,6 +22,7 @@
         <module>practice-rx-java</module>
         <module>practice-guava</module>
         <module>practice-dubbo</module>
+        <module>practice-elastic-job</module>
     </modules>
 
     <dependencies>
