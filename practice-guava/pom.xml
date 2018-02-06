@@ -17,6 +17,14 @@
             <artifactId>guava</artifactId>
             <version>23.6-jre</version>
         </dependency>
+
+        <!-- spring-boot-starter-web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>1.5.10.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
 </project>
