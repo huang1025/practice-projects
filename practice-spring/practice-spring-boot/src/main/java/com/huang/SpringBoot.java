@@ -1,15 +1,18 @@
 package com.huang;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 /**
  * Created by huang_jiangling on 2018/2/5.
  */
-@SpringBootApplication
+//@SpringBootApplication
 public class SpringBoot {
-
     public static void main(String[] args) {
-        SpringApplication.run(SpringBoot.class, args);
+        int j = 1;
+        while (true) {
+            System.out.println(j++);
+        }
     }
+
+//    public static void main(String[] args) {
+//        SpringApplication.run(SpringBoot.class, args);
+//    }
 }
