@@ -1,14 +1,12 @@
-package com.huang.async;
+package com.jiang.async;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by huang_jiangling on 2018/2/6.
  */
-@Configuration
-@EnableAsync
+@Component
 public class AsyncTest {
 
     @Async

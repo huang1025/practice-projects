@@ -1,5 +1,6 @@
-package com.huang.async;
+package com.jiang.async;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +10,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AsyncTest2 {
 
+    @Autowired
+    private AsyncTest asyncTest;
+
     @Bean
-    public String hehe(AsyncTest asyncTest) {
+    public String hehe() {
         for (int i = 0; i < 30; i++) {
             asyncTest.print();
         }
