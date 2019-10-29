@@ -1,0 +1,9 @@
+include 'practice-base'
+
+include 'practice-activiti'
+
+include 'practice-dubbo'
+include 'practice-dubbo:practice-dubbo-consumer'
+include 'practice-dubbo:practice-dubbo-provider'
+
+include 'practice-elastic-job'

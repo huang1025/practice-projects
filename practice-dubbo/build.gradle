@@ -1,0 +1,6 @@
+dependencies {
+    compile project(":practice-base")
+    compile 'org.hibernate:hibernate-core:5.2.12.Final'
+    compile 'com.alibaba:druid:1.1.6'
+    compile 'com.alibaba:dubbo:2.6.0'
+}
