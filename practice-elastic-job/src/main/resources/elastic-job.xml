@@ -13,7 +13,7 @@
                    connection-timeout-milliseconds="60000"/>
 
     <job:simple id="mySimpleJob"
-                class="com.huang.elasticjob.MySimpleJob"
+                class="com.huang.practice.elasticjob.job.MySimpleJob"
                 registry-center-ref="regCenter"
                 cron="2 0/3 * * * ? "
                 misfire="false"

@@ -1,24 +1,25 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.huang.mybatis.mapper.EmployeeMapper">
+<mapper namespace="com.huang.practice.mybatis.mapper.EmployeeMapper">
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.huang.mybatis.dto.Employee">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.huang.practice.mybatis.dto.Employee">
         INSERT INTO employee (name,age) VALUE (#{name},#{age})
     </insert>
 
-    <insert id="insert2" keyProperty="id" keyColumn="id" parameterType="com.huang.mybatis.dto.Employee">
+    <insert id="insert2" keyProperty="id" keyColumn="id" parameterType="com.huang.practice.mybatis.dto.Employee">
         <selectKey keyColumn="id" keyProperty="id" order="BEFORE">
             select max(id)+2;
         </selectKey>
         INSERT INTO employee (id,name,age) VALUE (#{id},#{name},#{age})
     </insert>
 
-    <update id="update" parameterType="com.huang.mybatis.dto.Employee">
+    <update id="update" parameterType="com.huang.practice.mybatis.dto.Employee">
         UPDATE employee SET name=#{name},age=#{age} WHERE id=#{id}
     </update>
 
-    <select id="select" parameterType="int" resultType="com.huang.mybatis.dto.Employee">
+    <select id="select" parameterType="int" resultType="com.huang.practice.mybatis.dto.Employee">
         select * from employee where id=#{id}
     </select>
 
@@ -26,11 +27,11 @@
         DELETE FROM employee WHERE id=#{id}
     </delete>
 
-    <resultMap id="employeeWithDept" type="com.huang.mybatis.dto.Employee">
+    <resultMap id="employeeWithDept" type="com.huang.practice.mybatis.dto.Employee">
         <id property="id" column="eid"/>
         <result property="name" column="ename"/>
         <result property="age" column="eage"/>
-        <association property="department" javaType="com.huang.mybatis.dto.Department">
+        <association property="department" javaType="com.huang.practice.mybatis.dto.Department">
             <id property="id" column="did"/>
             <result property="name" column="dname"/>
         </association>

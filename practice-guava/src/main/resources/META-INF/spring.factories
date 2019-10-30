@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.huang.forspringboot.SpringFactoriesBean
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.huang.practice.spring.base.forspringboot.SpringFactoriesBean

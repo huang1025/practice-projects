@@ -10,8 +10,9 @@
     </properties>
 
     <typeHandlers>
-        <typeHandler handler="com.huang.mybatis.typehandler.MyStringTypeHandler" jdbcType="VARCHAR" javaType="string"/>
-        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="com.huang.mybatis.dto.Sex"/>
+        <typeHandler handler="com.huang.practice.mybatis.typehandler.MyStringTypeHandler" jdbcType="VARCHAR"
+                     javaType="string"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumTypeHandler" javaType="com.huang.practice.mybatis.dto.Sex"/>
     </typeHandlers>
 
     <!--环境配置-->
