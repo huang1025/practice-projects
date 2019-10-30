@@ -7,3 +7,20 @@ include 'practice-dubbo:practice-dubbo-consumer'
 include 'practice-dubbo:practice-dubbo-provider'
 
 include 'practice-elastic-job'
+
+include 'practice-guava'
+
+include 'practice-http-client'
+
+include 'practice-mockito'
+
+include 'practice-mybatis'
+
+include 'practice-rx-java'
+
+include 'practice-spring'
+include ':practice-spring:practice-spring-base'
+include ':practice-spring:practice-spring-boot'
+include ':practice-spring:practice-spring-web'
+
+include 'practice-thread'

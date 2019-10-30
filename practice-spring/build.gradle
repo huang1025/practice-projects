@@ -1,0 +1,4 @@
+dependencies {
+    compile project(":practice-base")
+    compile 'org.springframework.boot:spring-boot-starter-web:1.5.10.RELEASE'
+}

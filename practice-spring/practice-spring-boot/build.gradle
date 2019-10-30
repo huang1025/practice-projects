@@ -1,0 +1,5 @@
+dependencies {
+    compile project(":practice-base")
+    compile project(":practice-guava")
+    compile 'org.springframework.boot:spring-boot-starter-web:1.5.10.RELEASE'
+}

@@ -1,0 +1,4 @@
+dependencies {
+    compile project(":practice-base")
+    compile 'io.reactivex.rxjava2:rxjava:2.1.8'
+}

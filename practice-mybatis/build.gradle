@@ -1,0 +1,5 @@
+dependencies {
+    compile project(":practice-base")
+    compile 'org.mybatis:mybatis:3.4.5'
+    compile 'mysql:mysql-connector-java:6.0.6'
+}

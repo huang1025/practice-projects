@@ -1,0 +1,5 @@
+dependencies {
+    compile project(":practice-base")
+    compile 'org.mockito:mockito-all:1.10.19'
+    compile 'junit:junit:4.11'
+}
