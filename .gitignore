@@ -2,3 +2,7 @@
 /.idea
 /*/*.iml
 
+.gradle/
+gradle/
+practice-base/build/
+practice-thread/build/
